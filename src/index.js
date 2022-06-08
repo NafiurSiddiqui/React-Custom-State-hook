@@ -25,11 +25,30 @@ import ProductsProvider from './context/products-context';
 
 //--------------------------------------------------------------------------------------------------------------stage 2 (applying context)
 
+// ReactDOM.render(
+// 	<ProductsProvider>
+// 		<BrowserRouter>
+// 			<App />
+// 		</BrowserRouter>
+// 	</ProductsProvider>,
+// 	document.getElementById('root')
+// );
+
+//--------------------------------------------------------------------------------------------------------------stage 3 (Custom hook
+
+import configureProductStore from './hooks-store/products-store';
+
+configureProductStore();
+
 ReactDOM.render(
-	<ProductsProvider>
-		<BrowserRouter>
-			<App />
-		</BrowserRouter>
-	</ProductsProvider>,
+	<BrowserRouter>
+		<App />
+	</BrowserRouter>,
 	document.getElementById('root')
 );
+
+/**
+ * @configureProductStore -
+ * default export hence we could name it anything we wanted
+ * we do not have to wrap it around our component. Since, we already intiated the state when we called the Store file inisde Product-store.
+ */
