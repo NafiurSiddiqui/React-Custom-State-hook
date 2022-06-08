@@ -1,0 +1,1 @@
+This is used as an alternative to Context and Redux. We will be replacing Context with out custom hook to manage global state since context is not opted in for high frequency changes.
