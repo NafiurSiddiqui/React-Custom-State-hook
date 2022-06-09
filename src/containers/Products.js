@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 // import { useSelector } from 'react-redux';
 import ProductItem from '../components/Products/ProductItem';
-import { ProductsContext } from '../context/products-context';
+import { useStore } from '../hooks-store/store';
+// import { ProductsContext } from '../context/products-context';
+
 import './Products.css';
 
 // const Products = props => {
@@ -46,7 +48,6 @@ import './Products.css';
 // export default Products;
 
 //--------------------------------------------------------------------------------------------------------------stage 3
-import { useStore } from '../hooks-store/store';
 
 const Products = (props) => {
 	const state = useStore()[0];
@@ -67,3 +68,9 @@ const Products = (props) => {
 };
 
 export default Products;
+
+/**
+ * @memo - to make sure they don't render if there props did not change,  for our case, only the favourite item should rerender not the otehrs. But that alone does not prevent all the item from re-rendering even though they did not change, since, we are using our custom hook here.
+ * but when the favorite is clicked, the fav item will be rendered anyway since we are going through memo and set our useStore to false.
+ * @useStore_FALSE : Now we do not register this component as global listener, therefore, it should not rebuild when our store changes.
+ */

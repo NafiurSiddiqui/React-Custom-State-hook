@@ -6,7 +6,7 @@ let listeners = [];
 //actions we can dispatch
 let actions = {};
 
-export function useStore() {
+export function useStore(shouldListen = true) {
 	//get global state
 	const setState = useState(globalState)[1];
 	//we used second index, since we are not interested in the first index of previousState.
@@ -31,13 +31,17 @@ export function useStore() {
 
 	// new listener
 	useEffect(() => {
-		//if componnet mounts
-		listeners.push(setState);
+		//if componnet mounts & should listen is true
+		if (shouldListen) {
+			listeners.push(setState);
+		}
 		//if unmounts
 		return () => {
-			listeners = listeners.filter((li) => li !== setState);
+			if (shouldListen) {
+				listeners = listeners.filter((li) => li !== setState);
+			}
 		};
-	}, [setState]);
+	}, [setState, shouldListen]);
 	//this dependancy is added because esList could not pick since we did not destrcture the useState here.
 
 	//return the two values
@@ -62,6 +66,9 @@ export function initStore(userActions, initialState) {
  * This hook will be used by any component, that calls it.
  * This hook will register the global object to the listerners, if the component mounts
  * if the componoent unmount, listener will be removed.
+ * @shouldListen -
+ * is used to prevent prduct item from rendering the number of item times.
+ * we can use that to decide whether or not we should register the componet or not
  */
 
 /**
